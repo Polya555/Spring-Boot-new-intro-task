@@ -9,10 +9,12 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "books")
 public class Book {
     @Id
@@ -34,31 +36,4 @@ public class Book {
     private String description;
 
     private String coverImage;
-
-    public Book() {
-    }
-
-    public Book(Long id, String title, String author, String isbn,
-                BigDecimal price, String description, String coverImage) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
-        this.price = price;
-        this.description = description;
-        this.coverImage = coverImage;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{"
-                + "id=" + id
-                + ", title='" + title + '\''
-                + ", author='" + author + '\''
-                + ", isbn='" + isbn + '\''
-                + ", price='" + price + '\''
-                + ", description='" + description + '\''
-                + ", coverImage='" + coverImage + '\''
-                + '}';
-    }
 }
