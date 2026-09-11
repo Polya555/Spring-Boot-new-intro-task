@@ -2,6 +2,7 @@ package mate.academy.service;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import mate.academy.dto.CreateBookRequestDto;
 import mate.academy.entity.Book;
 import mate.academy.repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findAll() {
         return bookRepository.findAll();
+    }
+
+    @Override
+    public Book getBookById(long id) {
+        return bookRepository.getBookById(id);
+    }
+
+    @Override
+    public Book createBook(CreateBookRequestDto bookDto) {
+        return bookRepository.createBook(bookDto);
     }
 }

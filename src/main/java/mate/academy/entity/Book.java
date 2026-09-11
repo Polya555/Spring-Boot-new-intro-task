@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import mate.academy.dto.CreateBookRequestDto;
 
 @Entity
 @Getter
@@ -36,4 +37,13 @@ public class Book {
     private String description;
 
     private String coverImage;
+
+    public Book(CreateBookRequestDto bookDto) {
+        this.title = bookDto.getTitle();
+        this.author = bookDto.getAuthor();
+        this.isbn = bookDto.getIsbn();
+        this.price = bookDto.getPrice();
+        this.description = bookDto.getDescription();
+        this.coverImage = bookDto.getCoverImage();
+    }
 }
