@@ -1,80 +1,58 @@
 package mate.academy.repository;
 
-import jakarta.persistence.PersistenceUnit;
 import java.util.List;
-import mate.academy.dto.CreateBookRequestDto;
+import java.util.Optional;
 import mate.academy.entity.Book;
-import mate.academy.exception.EntityNotFoundException;
+import mate.academy.exception.DataProcessingException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 public class BookRepositoryImpl implements BookRepository {
-    @PersistenceUnit
-    private SessionFactory factory;
+    private final SessionFactory sessionFactory;
+
+    public BookRepositoryImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public Book save(Book book) {
         Session session = null;
         Transaction transaction = null;
         try {
-            session = factory.openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.persist(book);
             transaction.commit();
+            return book;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Can't add book :" + book, e);
+            throw new DataProcessingException("Cannot save book: " + book, e);
         } finally {
             if (session != null) {
                 session.close();
             }
         }
-        return book;
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            Book book = session.find(Book.class, id);
+            return Optional.ofNullable(book);
+        } catch (Exception e) {
+            throw new DataProcessingException("Cannot find book: " + id, e);
+        }
     }
 
     @Override
     public List<Book> findAll() {
-        try (Session session = factory.openSession()) {
-            return session.createQuery("FROM Book", Book.class).getResultList();
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("SELECT b FROM Book b", Book.class).getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Books can`t be found", e);
-        }
-    }
-
-    @Override
-    public Book getBookById(long id) {
-        try (Session session = factory.openSession()) {
-            Book book = session.get(Book.class, id);
-            if (book == null) {
-                throw new EntityNotFoundException("Can't find book by id: " + id);
-            }
-            return book;
-        }
-    }
-
-    @Override
-    public Book createBook(CreateBookRequestDto bookDto) {
-        Session session = null;
-        org.hibernate.Transaction transaction = null;
-        try {
-            session = factory.openSession();
-            transaction = session.beginTransaction();
-            Book book = new Book(bookDto);
-            session.persist(book);
-            transaction.commit();
-            return book;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            throw new RuntimeException("Can't create " + bookDto, e);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            throw new DataProcessingException("Cannot find all books", e);
         }
     }
 }

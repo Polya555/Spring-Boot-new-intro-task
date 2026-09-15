@@ -1,7 +1,7 @@
 package mate.academy.repository;
 
 import java.util.List;
-import mate.academy.dto.CreateBookRequestDto;
+import java.util.Optional;
 import mate.academy.entity.Book;
 
 public interface BookRepository {
@@ -9,7 +9,5 @@ public interface BookRepository {
 
     List<Book> findAll();
 
-    Book getBookById(long id);
-
-    Book createBook(CreateBookRequestDto bookDto);
+    Optional<Book> findById(Long id);
 }
