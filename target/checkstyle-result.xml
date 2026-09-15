@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.3">
+<file name="C:\Users\пк\IdeaProjects\Spring-Boot-new-intro-task\src\main\java\mate\academy\entity\Book.java">
+</file>
+<file name="C:\Users\пк\IdeaProjects\Spring-Boot-new-intro-task\src\main\java\mate\academy\repository\BookRepository.java">
+</file>
+<file name="C:\Users\пк\IdeaProjects\Spring-Boot-new-intro-task\src\main\java\mate\academy\repository\BookRepositoryImpl.java">
+</file>
+<file name="C:\Users\пк\IdeaProjects\Spring-Boot-new-intro-task\src\main\java\mate\academy\service\BookService.java">
+</file>
+<file name="C:\Users\пк\IdeaProjects\Spring-Boot-new-intro-task\src\main\java\mate\academy\service\BookServiceImpl.java">
+</file>
+<file name="C:\Users\пк\IdeaProjects\Spring-Boot-new-intro-task\src\main\resources\application.properties">
+</file>
+<file name="C:\Users\пк\IdeaProjects\Spring-Boot-new-intro-task\src\test\resources\application.properties">
+</file>
+</checkstyle>
