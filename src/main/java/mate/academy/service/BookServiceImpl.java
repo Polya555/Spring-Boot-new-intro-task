@@ -54,7 +54,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto deleteById(Long id) {
         Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Can't find book to delete by id " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Can't find book to delete by id "
+                        + id));
         book.setDeleted(true);
         bookRepository.save(book);
         return bookMapper.toDto(book);
