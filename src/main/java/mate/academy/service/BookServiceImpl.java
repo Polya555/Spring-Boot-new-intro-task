@@ -37,17 +37,26 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto update(BookDto book) {
-        Book existingBook = bookRepository.findById(book.getId())
+    public BookDto update(Long id, CreateBookRequestDto bookDto) {
+        Book existingBook = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't find book by id "
-                        + book.getId()));
-        existingBook.setTitle(book.getTitle());
-        existingBook.setAuthor(book.getAuthor());
-        existingBook.setIsbn(book.getIsbn());
-        existingBook.setPrice(book.getPrice());
-        existingBook.setDescription(book.getDescription());
-        existingBook.setCoverImage(book.getCoverImage());
-        Book updatedBook = bookRepository.save(existingBook);
-        return bookMapper.toDto(bookRepository.save(updatedBook));
+                        + id));
+        Book updatedBook = bookMapper.toEntity(bookDto);
+        existingBook.setTitle(updatedBook.getTitle());
+        existingBook.setAuthor(updatedBook.getAuthor());
+        existingBook.setIsbn(updatedBook.getIsbn());
+        existingBook.setPrice(updatedBook.getPrice());
+        existingBook.setDescription(updatedBook.getDescription());
+        existingBook.setCoverImage(updatedBook.getCoverImage());
+        return bookMapper.toDto(bookRepository.save(existingBook));
+    }
+
+    @Override
+    public BookDto deleteById(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Can't find book to delete by id " + id));
+        book.setDeleted(true);
+        bookRepository.save(book);
+        return bookMapper.toDto(book);
     }
 }
