@@ -6,12 +6,11 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.annotation.Annotation;
 
 @Target({ElementType.TYPE, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldMatchValidator.class)
-public interface FieldMatch extends Annotation {
+public @interface FieldMatch {
     String message() default "Fields do not match";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
