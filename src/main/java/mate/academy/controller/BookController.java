@@ -28,7 +28,6 @@ public class BookController {
 
     @GetMapping
     @Operation(summary = "Get all books", description = "Returns paginated list of books")
-    @ResponseStatus(HttpStatus.FOUND)
     @ApiResponse(responseCode = "200", description = "Successfully retrieved books")
     @ApiResponse(responseCode = "400", description = "Invalid pagination parameters")
     public Page<BookDto> getAll(Pageable pageable) {
@@ -44,6 +43,7 @@ public class BookController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new book", description = "Creates and returns a new book")
     @ApiResponse(responseCode = "201", description = "Book created successfully")
     @ApiResponse(responseCode = "400", description = "Invalid request body")
@@ -61,6 +61,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a book", description = "Deletes a book by its ID")
     @ApiResponse(responseCode = "204", description = "Book deleted successfully")
     @ApiResponse(responseCode = "404", description = "Book not found")
