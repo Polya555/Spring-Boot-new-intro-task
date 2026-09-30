@@ -11,9 +11,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldMatchValidator.class)
 public @interface FieldMatch {
-    String message() default "Fields do not match";
+    String[] fields();
+    String message() default "Password's are not equal";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-    String first();
-    String second();
 }

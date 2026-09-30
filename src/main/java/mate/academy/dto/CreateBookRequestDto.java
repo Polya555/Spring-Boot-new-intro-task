@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class CreateBookRequestDto {
     @NotBlank(message = "Title is required")
-    @Size(max = 250, message = "Title must be less than 250 characters")
+    @Size(max = 255, message = "Title must be less than 250 characters")
     private String title;
 
     @NotBlank(message = "Author is required")

@@ -4,9 +4,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import mate.academy.validation.FieldMatch;
 
 @Getter
 @Setter
+@FieldMatch(fields = {"password", "repeatPassword"})
 public class UserRegistrationRequestDto {
     @Email
     @NotBlank(message = "E-mail is required")
@@ -24,6 +26,5 @@ public class UserRegistrationRequestDto {
     @NotBlank(message = "Last name is required")
     private String lastName;
 
-    @NotBlank(message = "Shipping address is required")
     private String shippingAddress;
 }
