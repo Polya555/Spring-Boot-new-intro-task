@@ -1,10 +1,9 @@
 package mate.academy.validation;
 
+import java.util.Objects;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
-
-import java.util.Objects;
 
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Object> {
     private String field;
@@ -15,6 +14,7 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
         this.field = constraintAnnotation.fields()[0];
         this.fieldMatch = constraintAnnotation.fields()[1];
     }
+
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
         Object field = new BeanWrapperImpl(value).getPropertyValue(this.field);
