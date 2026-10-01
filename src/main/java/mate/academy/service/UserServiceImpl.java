@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto register(UserRegistrationRequestDto request) {
-        Optional<User> byEmail = userRepository.findByEmail(email);
+        Optional<User> byEmail = userRepository.findByEmail(request.getEmail());
         if (byEmail.isPresent()) {
             throw new RegistrationException(
                     String.format("User with this email: %s already exists", request.getEmail())
