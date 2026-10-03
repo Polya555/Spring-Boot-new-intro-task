@@ -23,7 +23,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/register",
                                 "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/books", "/api/books/{id}").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/books",
+                                "/api/books/{id}").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
