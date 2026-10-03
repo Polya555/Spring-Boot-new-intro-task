@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-roles-table
+      author: root
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: ENUM('ROLE_USER', 'ROLE_ADMIN')
+                  constraints:
+                    nullable: false
+                    unique: true
+  - changeSet:
+      id: create-users-roles-table
+      author: root
+      changes:
+        - createTable:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_id
+                    references: users(id)
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_role_id
+                    references: roles(id)
+        - addPrimaryKey:
+            tableName: users_roles
+            columnNames: user_id, role_id
+            primaryKeyName: pk_user_role
+  - changeSet:
+      id: insert-admin-role
+      author: root
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: name, value: ROLE_ADMIN }
+  - changeSet:
+      id: insert-admin-user
+      author: root
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: email, value: admin1@example.com }
+              - column: { name: password, value: $2a$10$gY2eDpyQ3Te/PaQpFfQdE.inx8T1jImVhwtEiKWqxi7w5WF9s2cry
+              }
+              - column: { name: first_name, value: Admin }
+              - column: { name: last_name, value: User }
+        - insert:
+            tableName: users_roles
+            columns:
+              - column: { name: user_id, valueComputed: (SELECT id FROM users WHERE email = 'admin1@example.com') }
+              - column: { name: role_id, valueComputed: (SELECT id FROM roles WHERE name = 'ROLE_ADMIN') }

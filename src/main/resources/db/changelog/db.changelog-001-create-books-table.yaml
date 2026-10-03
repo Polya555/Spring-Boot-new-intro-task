@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-books-table
-      author: your_name
+      author: root
       changes:
         - createTable:
             tableName: books
@@ -41,7 +41,7 @@ databaseChangeLog:
                   name: cover_image
                   type: varchar(255)
               - column:
-                  name: is_deleted
+                  name: deleted
                   type: boolean
                   defaultValueBoolean: false
                   constraints:

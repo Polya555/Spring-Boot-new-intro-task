@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/db.changelog-001-create-books-table.yaml
   - include:
       file: db/changelog/db.changelog-user-table.yaml
+  - include:
+      file: db/changelog/db.changelog-roles-table.yaml
