@@ -1,7 +1,7 @@
 package mate.academy.service;
 
-import lombok.RequiredArgsConstructor;
 import java.util.Set;
+import lombok.RequiredArgsConstructor;
 import mate.academy.dto.UserRegistrationRequestDto;
 import mate.academy.dto.UserResponseDto;
 import mate.academy.entity.Role;
