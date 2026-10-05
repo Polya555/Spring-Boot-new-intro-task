@@ -1,6 +1,7 @@
 package mate.academy.service;
 
 import lombok.RequiredArgsConstructor;
+import java.util.Set;
 import mate.academy.dto.UserRegistrationRequestDto;
 import mate.academy.dto.UserResponseDto;
 import mate.academy.entity.Role;
@@ -12,7 +13,6 @@ import mate.academy.repository.RoleRepository;
 import mate.academy.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
