@@ -11,6 +11,7 @@ import mate.academy.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Get all books", description = "Returns paginated list of books")
     @ApiResponse(responseCode = "200", description = "Successfully retrieved books")
     @ApiResponse(responseCode = "400", description = "Invalid pagination parameters")
@@ -35,6 +37,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Operation(summary = "Get book by ID", description = "Returns a book by its ID")
     @ApiResponse(responseCode = "200", description = "Book found")
     @ApiResponse(responseCode = "404", description = "Book not found")
@@ -43,6 +46,7 @@ public class BookController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new book", description = "Creates and returns a new book")
     @ApiResponse(responseCode = "201", description = "Book created successfully")
@@ -52,6 +56,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update a book", description = "Updates and returns the book")
     @ApiResponse(responseCode = "200", description = "Book updated successfully")
     @ApiResponse(responseCode = "400", description = "Invalid request body")
@@ -61,6 +66,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a book", description = "Deletes a book by its ID")
     @ApiResponse(responseCode = "204", description = "Book deleted successfully")

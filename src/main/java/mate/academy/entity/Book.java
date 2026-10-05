@@ -17,7 +17,7 @@ import org.hibernate.annotations.Where;
 @Setter
 @ToString
 @Table(name = "books")
-@Where(clause = "deleted = false")
+@Where(clause = "isDeleted = false")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +39,6 @@ public class Book {
 
     private String coverImage;
 
-    @Column(name = "deleted", nullable = false)
+    @Column(name = "isDeleted", nullable = false)
     private boolean isDeleted = false;
 }
