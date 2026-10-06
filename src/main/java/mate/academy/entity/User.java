@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Getter
 @Setter
 @Table(name = "users")
-@Where(clause = "is_Deleted = false")
+@Where(clause = "is_deleted = false")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
