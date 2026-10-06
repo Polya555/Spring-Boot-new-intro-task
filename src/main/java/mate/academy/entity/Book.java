@@ -10,14 +10,14 @@ import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @Table(name = "books")
-@Where(clause = "isDeleted = false")
+@SQLRestriction("is_deleted = false")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +39,6 @@ public class Book {
 
     private String coverImage;
 
-    @Column(name = "isDeleted", nullable = false)
+    @Column(nullable = false)
     private boolean isDeleted = false;
 }
