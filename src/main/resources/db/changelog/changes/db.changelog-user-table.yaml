@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-users-table
-      author: your_name
+      author: root
       changes:
         - createTable:
             tableName: users
@@ -37,3 +37,9 @@ databaseChangeLog:
               - column:
                   name: shipping_address
                   type: VARCHAR(255)
+              - column:
+                  name: is_deleted
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
