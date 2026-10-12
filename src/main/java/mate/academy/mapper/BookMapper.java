@@ -5,8 +5,8 @@ import mate.academy.dto.BookDtoWithoutCategoryIds;
 import mate.academy.dto.CreateBookRequestDto;
 import mate.academy.entity.Book;
 import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 
