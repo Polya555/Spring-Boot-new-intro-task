@@ -13,5 +13,5 @@ import org.mapstruct.NullValueCheckStrategy;
 public interface CategoryMapper {
     CategoryDto toDto(Category category);
 
-    Category toEntity(CategoryDto categoryDTO);
+    Category toEntity(CategoryDto categoryDto);
 }
