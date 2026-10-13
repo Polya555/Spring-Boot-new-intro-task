@@ -8,8 +8,10 @@ import mate.academy.exception.EntityNotFoundException;
 import mate.academy.mapper.CategoryMapper;
 import mate.academy.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
@@ -40,8 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't find category "
                         + "to update by id " + id));
-        existingCategory.setName(categoryDto.getName());
-        existingCategory.setDescription(categoryDto.getDescription());
+        categoryMapper.updateCategoryFromDto(categoryDto, existingCategory);
         Category savedCategory = categoryRepository.save(existingCategory);
         return categoryMapper.toDto(savedCategory);
     }
