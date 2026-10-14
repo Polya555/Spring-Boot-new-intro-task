@@ -1,14 +1,18 @@
 package mate.academy.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import mate.academy.dto.BookDto;
 import mate.academy.dto.BookDtoWithoutCategoryIds;
 import mate.academy.dto.CreateBookRequestDto;
 import mate.academy.entity.Book;
+import mate.academy.entity.Category;
 import mate.academy.exception.EntityNotFoundException;
 import mate.academy.mapper.BookMapper;
 import mate.academy.repository.BookRepository;
+import mate.academy.repository.CategoryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,10 +22,14 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto book) {
-        Book savedBook = bookRepository.save(bookMapper.toEntity(book));
+        Book bookEntity = bookMapper.toEntity(book);
+        Set<Category> categories = new HashSet<>(categoryRepository.findAllById(book.getCategoryIds()));
+        bookEntity.setCategories(categories);
+        Book savedBook = bookRepository.save(bookEntity);
         return bookMapper.toDto(savedBook);
     }
 
@@ -42,6 +50,10 @@ public class BookServiceImpl implements BookService {
         Book existingBook = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't find book to update by id "
                         + id));
+        if (bookDto.getCategoryIds() != null && !bookDto.getCategoryIds().isEmpty()) {
+            Set<Category> categories = new HashSet<>(categoryRepository.findAllById(bookDto.getCategoryIds()));
+            existingBook.setCategories(categories);
+        }
         bookMapper.updateBookFromDto(bookDto, existingBook);
         return bookMapper.toDto(bookRepository.save(existingBook));
     }
