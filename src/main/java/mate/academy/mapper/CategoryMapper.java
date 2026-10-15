@@ -1,6 +1,7 @@
 package mate.academy.mapper;
 
 import mate.academy.dto.CategoryDto;
+import mate.academy.dto.CreateCategoryRequestDto;
 import mate.academy.entity.Category;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -14,7 +15,7 @@ import org.mapstruct.NullValueCheckStrategy;
 public interface CategoryMapper {
     CategoryDto toDto(Category category);
 
-    Category toEntity(CategoryDto categoryDto);
+    Category toEntity(CreateCategoryRequestDto dto);
 
-    void updateCategoryFromDto(CategoryDto dto, @MappingTarget Category category);
+    void updateCategoryFromDto(CreateCategoryRequestDto dto, @MappingTarget Category category);
 }

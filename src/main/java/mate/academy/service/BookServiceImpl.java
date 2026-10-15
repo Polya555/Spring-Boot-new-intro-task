@@ -1,8 +1,8 @@
 package mate.academy.service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import mate.academy.dto.BookDto;
 import mate.academy.dto.BookDtoWithoutCategoryIds;
@@ -27,9 +27,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto save(CreateBookRequestDto book) {
         Book bookEntity = bookMapper.toEntity(book);
-        Set<Category> categories = new HashSet<>(categoryRepository
-                .findAllById(book.getCategoryIds()));
-        bookEntity.setCategories(categories);
+        bookEntity.setCategories(categoriesIdToCategories(book.getCategoryIds()));
         Book savedBook = bookRepository.save(bookEntity);
         return bookMapper.toDto(savedBook);
     }
@@ -47,16 +45,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto update(Long id, CreateBookRequestDto bookDto) {
+    public BookDto update(Long id, CreateBookRequestDto book) {
         Book existingBook = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't find book to update by id "
                         + id));
-        if (bookDto.getCategoryIds() != null && !bookDto.getCategoryIds().isEmpty()) {
-            Set<Category> categories = new HashSet<>(categoryRepository
-                    .findAllById(bookDto.getCategoryIds()));
-            existingBook.setCategories(categories);
-        }
-        bookMapper.updateBookFromDto(bookDto, existingBook);
+        bookMapper.updateBookFromDto(book, existingBook);
+        existingBook.setCategories(categoriesIdToCategories(book.getCategoryIds()));
         return bookMapper.toDto(bookRepository.save(existingBook));
     }
 
@@ -74,5 +68,11 @@ public class BookServiceImpl implements BookService {
                 .stream()
                 .map(bookMapper::toDtoWithoutCategories)
                 .toList();
+    }
+
+    private Set<Category> categoriesIdToCategories(List<Long> categories) {
+        return categories.stream()
+                .map(categoryRepository::getReferenceById)
+                .collect(Collectors.toSet());
     }
 }

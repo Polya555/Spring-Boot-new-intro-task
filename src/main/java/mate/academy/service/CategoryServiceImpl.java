@@ -3,6 +3,7 @@ package mate.academy.service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.dto.CategoryDto;
+import mate.academy.dto.CreateCategoryRequestDto;
 import mate.academy.entity.Category;
 import mate.academy.exception.EntityNotFoundException;
 import mate.academy.mapper.CategoryMapper;
@@ -32,13 +33,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto) {
+    public CategoryDto save(CreateCategoryRequestDto categoryDto) {
         Category savedCategory = categoryRepository.save(categoryMapper.toEntity(categoryDto));
         return categoryMapper.toDto(savedCategory);
     }
 
     @Override
-    public CategoryDto update(Long id, CategoryDto categoryDto) {
+    public CategoryDto update(Long id, CreateCategoryRequestDto categoryDto) {
         Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't find category "
                         + "to update by id " + id));

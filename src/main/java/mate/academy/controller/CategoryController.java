@@ -8,6 +8,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.dto.BookDtoWithoutCategoryIds;
 import mate.academy.dto.CategoryDto;
+import mate.academy.dto.CreateCategoryRequestDto;
 import mate.academy.service.BookService;
 import mate.academy.service.CategoryService;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class CategoryController {
     @Operation(summary = "Create category", description = "Creates and returns a new category")
     @ApiResponse(responseCode = "200", description = "Successfully created category")
     @ApiResponse(responseCode = "400", description = "Invalid request body")
-    public CategoryDto createCategory(@Valid @RequestBody CategoryDto categoryDto) {
+    public CategoryDto createCategory(@Valid @RequestBody CreateCategoryRequestDto categoryDto) {
         return categoryService.save(categoryDto);
     }
 
@@ -63,7 +64,7 @@ public class CategoryController {
     @ApiResponse(responseCode = "400", description = "Invalid request body")
     @ApiResponse(responseCode = "404", description = "Category not found")
     public CategoryDto updateCategory(@PathVariable Long id,
-                                      @Valid @RequestBody CategoryDto categoryDto) {
+                                      @Valid @RequestBody CreateCategoryRequestDto categoryDto) {
         return categoryService.update(id, categoryDto);
     }
 
