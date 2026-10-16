@@ -5,3 +5,7 @@ databaseChangeLog:
       file: db/changelog/changes/db.changelog-user-table.yaml
   - include:
       file: db/changelog/changes/db.changelog-roles-table.yaml
+  - include:
+      file: db/changelog/changes/db.changelog-create-categories-table.yaml
+  - include:
+      file: db/changelog/changes/db.changelog-book-category-table.yaml

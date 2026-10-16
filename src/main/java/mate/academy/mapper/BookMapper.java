@@ -1,8 +1,12 @@
 package mate.academy.mapper;
 
+import java.util.stream.Collectors;
 import mate.academy.dto.BookDto;
+import mate.academy.dto.BookDtoWithoutCategoryIds;
 import mate.academy.dto.CreateBookRequestDto;
 import mate.academy.entity.Book;
+import mate.academy.entity.Category;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -17,5 +21,14 @@ public interface BookMapper {
 
     Book toEntity(CreateBookRequestDto requestDto);
 
+    BookDtoWithoutCategoryIds toDtoWithoutCategories(Book book);
+
     void updateBookFromDto(CreateBookRequestDto book, @MappingTarget Book entity);
+
+    @AfterMapping
+    default void setCategoryIds(@MappingTarget BookDto bookDto, Book book) {
+        bookDto.setCategoryIds(book.getCategories().stream()
+                .map(Category::getId)
+                .collect(Collectors.toList()));
+    }
 }
