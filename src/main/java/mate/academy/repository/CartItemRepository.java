@@ -1,0 +1,7 @@
+package mate.academy.repository;
+
+import mate.academy.entity.CartItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
+}

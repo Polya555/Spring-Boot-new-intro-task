@@ -4,6 +4,7 @@ import java.util.List;
 import mate.academy.dto.BookDto;
 import mate.academy.dto.BookDtoWithoutCategoryIds;
 import mate.academy.dto.CreateBookRequestDto;
+import mate.academy.entity.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
