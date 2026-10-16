@@ -9,8 +9,8 @@ import mate.academy.entity.Category;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.NullValueCheckStrategy;
 
 @Mapper(componentModel = "spring",
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,

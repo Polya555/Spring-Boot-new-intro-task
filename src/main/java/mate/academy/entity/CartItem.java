@@ -1,6 +1,13 @@
 package mate.academy.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +23,7 @@ public class CartItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn (nullable = false)
+    @JoinColumn(nullable = false)
     private ShoppingCart shoppingCart;
 
     @Column(nullable = false)

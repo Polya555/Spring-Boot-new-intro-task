@@ -42,7 +42,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .filter(item -> item.getBook().getId().equals(request.getBookId()))
                 .findFirst();
         if (existingItem.isPresent()) {
-            existingItem.get().setQuantity(existingItem.get().getQuantity() + request.getQuantity());
+            existingItem.get().setQuantity(existingItem.get().getQuantity()
+                    + request.getQuantity());
         } else {
             CartItem newItem = new CartItem();
             newItem.setBook(book);
