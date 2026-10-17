@@ -66,7 +66,8 @@ public class ShoppingCartController {
     @Operation(summary = "Remove an item", description = "Removes an item from shopping cart")
     @ApiResponse(responseCode = "204", description = "Item deleted successfully")
     @ApiResponse(responseCode = "404", description = "Item not found")
-    public ShoppingCartDto removeItem(@PathVariable Long cartItemId, @AuthenticationPrincipal User user) {
+    public ShoppingCartDto removeItem(@PathVariable Long cartItemId,
+                                      @AuthenticationPrincipal User user) {
         return shoppingCartService.removeItem(cartItemId, user);
     }
 }
