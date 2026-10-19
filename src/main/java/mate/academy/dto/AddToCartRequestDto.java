@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class AddToCartRequestDto {
     @NotNull
+    @Positive
     private Long bookId;
 
     @Positive

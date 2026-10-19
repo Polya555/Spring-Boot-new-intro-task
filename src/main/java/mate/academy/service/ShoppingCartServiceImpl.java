@@ -15,8 +15,10 @@ import mate.academy.repository.BookRepository;
 import mate.academy.repository.CartItemRepository;
 import mate.academy.repository.ShoppingCartRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final BookRepository bookRepository;
