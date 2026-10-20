@@ -39,7 +39,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .orElseThrow(() -> new EntityNotFoundException("Can't find book by id"
                         + request.getBookId()));
         ShoppingCart cart = shoppingCartRepository.findByUser(user)
-                .orElseGet(() -> createCart(user));
+                .orElseThrow(() -> new EntityNotFoundException("Can't find cart for user with id: "
+                        + user.getId()));
         Optional<CartItem> existingItem = cart.getCartItems().stream()
                 .filter(item -> item.getBook().getId().equals(request.getBookId()))
                 .findFirst();
@@ -59,7 +60,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCartDto getCart(User user) {
         return shoppingCartMapper.toDto(shoppingCartRepository.findByUser(user)
-                .orElseGet(() -> createCart(user)));
+                .orElseThrow(() -> new EntityNotFoundException("Can't find cart for user with id: "
+                        + user.getId())));
     }
 
     @Override
