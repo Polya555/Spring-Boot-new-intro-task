@@ -1,13 +1,13 @@
 package mate.academy.dto;
 
-import mate.academy.entity.OrderItem;
-import mate.academy.entity.Status;
-import mate.academy.entity.User;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+import mate.academy.entity.OrderItem;
+import mate.academy.entity.Status;
+import mate.academy.entity.User;
 
 @Getter
 @Setter

@@ -45,7 +45,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderItemDto> getOrderItems(Long orderId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new EntityNotFoundException("Can't find order by id " + orderId));
+                .orElseThrow(() -> new EntityNotFoundException("Can't find order by id "
+                        + orderId));
         return order.getOrderItems()
                 .stream()
                 .map(orderMapper::toItemDto)
@@ -55,7 +56,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderItemDto getOrderItem(Long orderId, Long itemId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new EntityNotFoundException("Can't find order by id " + orderId));
+                .orElseThrow(() -> new EntityNotFoundException("Can't find order by id "
+                        + orderId));
         OrderItem item = order.getOrderItems().stream()
                 .filter(i -> i.getId().equals(itemId))
                 .findFirst()
@@ -66,7 +68,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto updateOrderStatus(Long orderId, UpdateOrderRequestDto request) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new EntityNotFoundException("Can't find order by id " + orderId));
+                .orElseThrow(() -> new EntityNotFoundException("Can't find order by id "
+                        + orderId));
         order.setStatus(Status.valueOf(request.getStatus()));
         orderRepository.save(order);
         return orderMapper.toDto(order);

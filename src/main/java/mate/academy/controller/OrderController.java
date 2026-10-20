@@ -1,9 +1,9 @@
 package mate.academy.controller;
 
-import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.dto.OrderDto;
 import mate.academy.dto.OrderItemDto;
@@ -12,7 +12,14 @@ import mate.academy.dto.UpdateOrderRequestDto;
 import mate.academy.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/order")
 @RestController
@@ -72,7 +79,8 @@ public class OrderController {
     @ApiResponse(responseCode = "200", description = "Status updated successfully")
     @ApiResponse(responseCode = "400", description = "Invalid request body")
     @ApiResponse(responseCode = "404", description = "Order not found")
-    public OrderDto updateStatus(@PathVariable Long id, @RequestBody UpdateOrderRequestDto request) {
+    public OrderDto updateStatus(@PathVariable Long id,
+                                 @RequestBody UpdateOrderRequestDto request) {
         return orderService.updateOrderStatus(id, request);
     }
 }
