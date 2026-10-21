@@ -11,7 +11,10 @@ import mate.academy.entity.OrderItem;
 import mate.academy.entity.Status;
 import mate.academy.exception.EntityNotFoundException;
 import mate.academy.mapper.OrderMapper;
+import mate.academy.repository.OrderItemRepository;
 import mate.academy.repository.OrderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
     private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
 
     @Override
     public OrderDto save(OrderRequestDto orderDto) {
@@ -29,22 +33,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto getById(Long id) {
-        return orderMapper.toDto(orderRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Can't find order by id " + id)));
+    public Page<OrderDto> getAll(Pageable pageable) {
+        return orderRepository.findAll(pageable)
+                .map(orderMapper::toDto);
     }
 
     @Override
-    public List<OrderDto> getAll() {
-        return orderRepository.findAll()
-                .stream()
-                .map(orderMapper::toDto)
-                .toList();
-    }
-
-    @Override
-    public List<OrderItemDto> getOrderItems(Long orderId) {
-        Order order = orderRepository.findById(orderId)
+    public List<OrderItemDto> getOrderItems(Long orderId, Long userId) {
+        Order order = orderRepository.findByIdAndUserId(orderId, userId)
                 .orElseThrow(() -> new EntityNotFoundException("Can't find order by id "
                         + orderId));
         return order.getOrderItems()
@@ -54,14 +50,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderItemDto getOrderItem(Long orderId, Long itemId) {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new EntityNotFoundException("Can't find order by id "
-                        + orderId));
-        OrderItem item = order.getOrderItems().stream()
-                .filter(i -> i.getId().equals(itemId))
-                .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException("Can't find item by id " + itemId));
+    public OrderItemDto getOrderItem(Long orderItemId, Long orderId, Long userId) {
+        OrderItem item = orderItemRepository.findByIdAndOrderIdAndUserId(orderItemId, orderId, userId)
+                .orElseThrow(() -> new EntityNotFoundException("Can't find order item by id "
+                        + orderItemId));
         return orderMapper.toItemDto(item);
     }
 

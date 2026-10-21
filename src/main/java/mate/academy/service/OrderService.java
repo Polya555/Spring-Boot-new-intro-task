@@ -5,17 +5,17 @@ import mate.academy.dto.OrderDto;
 import mate.academy.dto.OrderItemDto;
 import mate.academy.dto.OrderRequestDto;
 import mate.academy.dto.UpdateOrderRequestDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface OrderService {
     OrderDto save(OrderRequestDto orderDto);
 
-    OrderDto getById(Long id);
+    Page<OrderDto> getAll(Pageable pageable);
 
-    List<OrderDto> getAll();
+    List<OrderItemDto> getOrderItems(Long orderId, Long userId);
 
-    List<OrderItemDto> getOrderItems(Long orderId);
-
-    OrderItemDto getOrderItem(Long orderId, Long itemId);
+    OrderItemDto getOrderItem(Long orderItemId, Long orderId, Long userId);
 
     OrderDto updateOrderStatus(Long orderId, UpdateOrderRequestDto request);
 }
