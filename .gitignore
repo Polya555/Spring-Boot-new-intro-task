@@ -21,3 +21,4 @@ Thumbs.db
 *.log
 # Application
 application.properties
+.env
