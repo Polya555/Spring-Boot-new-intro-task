@@ -3,7 +3,8 @@ services:
   app:
     build: .
     ports:
-      - "8080:8080"
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+      - $DEBUG_PORT:$DEBUG_PORT
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlDB:${MYSQLDB_DOCKER_PORT}/${MYSQLDB_DATABASE}?createDatabaseIfNotExist=true
       - SPRING_DATASOURCE_USERNAME=${MYSQLDB_USER}
